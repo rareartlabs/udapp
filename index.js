@@ -8,11 +8,17 @@ const EthStore = require('eth-store')
 const EthAbi = require('ethjs-abi')
 const EthBlockTracker = require('eth-block-tracker')
 const setupRenderer = require('./setupRenderer')
-const exampleAbi = require('./token.json')
+// const exampleAbi = require('./token.json')
+const truffleJSON = require('./tokens/Registry.json')
+
+// const defaultState = {
+//   abi: exampleAbi,
+//   view: { address: '0xd26114cd6EE289AccF82350c8d8487fedB8A0C07' },
+// }
 
 const defaultState = {
-  abi: exampleAbi,
-  view: { address: '0xd26114cd6EE289AccF82350c8d8487fedB8A0C07' },
+  abi: truffleJSON.abi,
+  view: { address: "0x0d8cc4b8d15d4c3ef1d70af0071376fb26b5669b" },
 }
 
 window.addEventListener('load', function() {
@@ -140,7 +146,7 @@ function subscribeEthStoreToAbi(appState, ethStore) {
     const contractAddress = appState.view.address
     const fromAddress = appState.aux.fromAddress
     const methods = abi.filter((interface) => interface.type === 'function')
-    
+
     // get logs for block
     ethStore.put('logs', (block) => ({
       method: 'eth_getLogs',
@@ -250,7 +256,7 @@ function render(appState, actions){
               })
             ])
           ]),
-          
+
           h('.form-group', [
             h('label .control-label .col-sm-2', {
               for: 'methods1',
